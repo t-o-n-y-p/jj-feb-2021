@@ -1,0 +1,23 @@
+1. Registration:
+- anonymous visits the main page
+- clicks register
+- fill form
+- click register
+
+2. Login
+- anonymous visits the main page
+- clicks login
+- fill login form
+- click login button
+
+3. Search parts
+- user visits main page
+- observes the list of all parts
+- enters part id into the search field
+- clicks search button
+
+4. Parts introduction
+- admin visits main page
+- clicks add part button
+- fills form
+- clicks add button
