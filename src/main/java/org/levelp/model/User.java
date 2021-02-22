@@ -1,6 +1,7 @@
 package org.levelp.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Users")
@@ -18,6 +19,12 @@ public class User {
 
     @Column(nullable = false)
     private boolean isAdmin;
+
+    @Temporal(TemporalType.DATE)
+    private Date birthDate;
+
+    @Convert(converter = UserStatusConverter.class)
+    private UserStatus status = UserStatus.UNCONFIRMED;
 
     @Transient
     private String test;
@@ -61,5 +68,13 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }

@@ -1,6 +1,8 @@
 package ru.levelp;
 
 import org.junit.Test;
+import org.levelp.model.Part;
+import org.levelp.model.Storage;
 import org.levelp.model.User;
 
 import javax.persistence.EntityManager;
@@ -21,6 +23,13 @@ public class EntityManagerTest {
             manager.getTransaction().begin();
             User user = new User("test", "aaa", true);
             manager.persist(user);
+
+            Storage storage = new Storage("Some storage");
+            Part p = new Part("test-part", "Test part");
+            p.setStorage(storage);
+
+            manager.persist(storage);
+            manager.persist(p);
             manager.getTransaction().commit();
         } finally {
             manager.close();

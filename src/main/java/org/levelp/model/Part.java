@@ -16,7 +16,8 @@ public class Part {
     private String title;
 
     @ManyToOne
-    private User owner;
+    @JoinColumn(name = "storage_fk")
+    private Storage storage;
 
     public Part() {
     }
@@ -48,5 +49,13 @@ public class Part {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
     }
 }
