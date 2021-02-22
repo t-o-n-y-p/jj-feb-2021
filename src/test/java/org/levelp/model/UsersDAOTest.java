@@ -75,4 +75,10 @@ public class UsersDAOTest {
         List<User> foundBefore = usersDAO.findByBirthDate(dateBefore);
         assertEquals(0, foundBefore.size());
     }
+
+    @Test
+    public void findByIsAdmin() {
+        assertEquals("login777", usersDAO.findByIsAdmin(false).get(0).getLogin());
+        assertTrue(usersDAO.findByIsAdmin(true).isEmpty());
+    }
 }

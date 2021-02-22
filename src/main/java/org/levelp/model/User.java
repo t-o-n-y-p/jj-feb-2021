@@ -5,6 +5,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Users")
+@NamedQueries({
+        @NamedQuery(name = "findByIsAdmin", query = "from User where isAdmin = :isAdmin")
+})
 public class User {
 
     @Id

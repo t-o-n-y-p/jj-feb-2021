@@ -40,4 +40,10 @@ public class UsersDAO {
                 .getResultList();
     }
 
+    public List<User> findByIsAdmin(boolean isAdmin) {
+        return manager.createNamedQuery("findByIsAdmin", User.class)
+                .setParameter("isAdmin", isAdmin)
+                .getResultList();
+    }
+
 }

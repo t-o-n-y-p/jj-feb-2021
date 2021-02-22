@@ -2,6 +2,9 @@ package org.levelp.model;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class PartsDAO {
@@ -34,4 +37,15 @@ public class PartsDAO {
         ).setParameter("title", title)
                 .getResultList();
     }
+
+//    public List<Part> findAllSortedBy(String columnName) {
+//        CriteriaBuilder builder = manager.getCriteriaBuilder();
+//        CriteriaQuery<Part> query = builder.createQuery(Part.class);
+//        Root<Part> fromPart = query.from(Part.class);
+//        query.orderBy(builder.asc(fromPart.get(columnName)));
+//
+//        return query.select()
+//
+//    }
+
 }
