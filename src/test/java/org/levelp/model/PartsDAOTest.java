@@ -49,4 +49,19 @@ public class PartsDAOTest {
         assertTrue(partsDAO.findByStorageTitle("test-storage-11").isEmpty());
         assertEquals("My part", partsDAO.findByStorageTitle("test-storage").get(0).getTitle());
     }
+
+    @Test
+    public void findAllSortedBy() {
+        assertEquals("My part", partsDAO.findAllSortedBy("title").get(0).getTitle());
+
+        boolean failed = false;
+        try {
+            partsDAO.findAllSortedBy("non-existing-column");
+        } catch (Throwable expected) {
+            failed = true;
+        }
+        if (!failed) {
+            fail("Shouldn't pass here");
+        }
+    }
 }
