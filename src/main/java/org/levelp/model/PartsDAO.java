@@ -1,5 +1,8 @@
 package org.levelp.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -7,10 +10,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+@Repository
 public class PartsDAO {
     private final EntityManager manager;
 
-    public PartsDAO(EntityManager manager) {
+    public PartsDAO(@Autowired EntityManager manager) {
         this.manager = manager;
     }
 

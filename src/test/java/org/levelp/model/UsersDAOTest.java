@@ -4,6 +4,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.levelp.TestConfiguration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,35 +20,27 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfiguration.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UsersDAOTest {
-    private EntityManagerFactory factory;
+
+    @Autowired
     private EntityManager manager;
+
+    @Autowired
     private UsersDAO usersDAO;
+
     private Date now = new Date();
 
     @Before
     public void configure() {
-        factory = Persistence.createEntityManagerFactory(
-                "TestPersistenceUnit"
-        );
-        manager = factory.createEntityManager();
-        usersDAO = new UsersDAO(manager);
 
         User newUser = new User("login777", "pass", false);
         newUser.setBirthDate(now);
         manager.getTransaction().begin();
         manager.persist(newUser);
         manager.getTransaction().commit();
-    }
-
-    @After
-    public void cleanup() {
-        if (manager != null) {
-            manager.close();
-        }
-        if (factory != null) {
-            factory.close();
-        }
     }
 
     @Test

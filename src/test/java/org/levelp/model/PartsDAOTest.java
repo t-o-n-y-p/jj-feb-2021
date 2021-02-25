@@ -3,6 +3,12 @@ package org.levelp.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.levelp.TestConfiguration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,19 +17,19 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestConfiguration.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PartsDAOTest {
-    private EntityManagerFactory factory;
+
+    @Autowired
     private EntityManager manager;
+
+    @Autowired
     private PartsDAO partsDAO;
 
     @Before
     public void configure() {
-        factory = Persistence.createEntityManagerFactory(
-                "TestPersistenceUnit"
-        );
-        manager = factory.createEntityManager();
-        partsDAO = new PartsDAO(manager);
-
         manager.getTransaction().begin();
         Storage newStorage = new Storage("test-storage");
         Part newPart = new Part("111", "My part");
@@ -32,16 +38,6 @@ public class PartsDAOTest {
         manager.persist(newStorage);
         manager.persist(newPart);
         manager.getTransaction().commit();
-    }
-
-    @After
-    public void cleanup() {
-        if (manager != null) {
-            manager.close();
-        }
-        if (factory != null) {
-            factory.close();
-        }
     }
 
     @Test
